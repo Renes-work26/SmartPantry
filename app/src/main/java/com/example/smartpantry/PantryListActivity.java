@@ -1,5 +1,6 @@
 package com.example.smartpantry;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -18,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class PantryListActivity extends AppCompatActivity implements PantryAdapter.Listener {
-
+    public static final String EXTRA_ITEM_ID = "extra_item_id";
     private DatabaseHelper dbHelper;
     private PantryAdapter adapter;
     private TextView emptyView;
@@ -37,8 +38,7 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.fab_add_item);
-        fab.setOnClickListener(v -> Toast.makeText(this, "Add screen",
-                Toast.LENGTH_SHORT).show());
+        fab.setOnClickListener(v -> startActivity(new Intent(this, AddEditIngredientActivity.class)));
     }
     @Override
     protected void onResume() {
@@ -52,6 +52,8 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
     }
     @Override
     public void onItemClicked(PantryItem item){
-        Toast.makeText(this, "Edit screen" + item.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AddEditIngredientActivity.class);
+        intent.putExtra(EXTRA_ITEM_ID, item.getId());
+        startActivity(intent);
     }
 }
