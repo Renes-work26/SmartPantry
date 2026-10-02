@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.smartpantry.model.PantryItem;
 import android.view.View;
 import android.view.LayoutInflater;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.example.smartpantry.R;
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder> {
     public interface Listener{
         void onItemClicked(PantryItem item);
+        void onDeleteClicked(PantryItem item);
     }
     private List<PantryItem> items = new ArrayList<>();
     public final Listener listener;
@@ -42,6 +44,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
         String details = formatQuantity(item.getQuantity()) + " " + item.getUnit();
         holder.details.setText(details);
         holder.itemView.setOnClickListener(v -> listener.onItemClicked(item));
+        holder.deleteButton.setOnClickListener(v -> listener.onDeleteClicked(item));
     }
     @Override
     public int getItemCount(){
@@ -54,11 +57,13 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
     }
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView name, details;
+        ImageButton deleteButton;
 
         ViewHolder(View itemView) {
             super(itemView);
                 name = itemView.findViewById(R.id.text_item_name);
                 details = itemView.findViewById(R.id.text_item_details);
+                deleteButton = itemView.findViewById(R.id.button_delete_item);
             }
         }
     }

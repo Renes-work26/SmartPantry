@@ -1,5 +1,6 @@
 package com.example.smartpantry;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -55,5 +56,18 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
         Intent intent = new Intent(this, AddEditIngredientActivity.class);
         intent.putExtra(EXTRA_ITEM_ID, item.getId());
         startActivity(intent);
+    }
+    @Override
+    public void onDeleteClicked(PantryItem item) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Ingredient")
+                .setMessage("Remove \"" + item.getName() + "\" from pantry?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    dbHelper.deletePantryItem(item.getId());
+                    loadPantry();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+
     }
 }
