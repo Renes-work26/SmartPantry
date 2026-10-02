@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +39,7 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
 
         FloatingActionButton fab = findViewById(R.id.fab_add_item);
         fab.setOnClickListener(v -> startActivity(new Intent(this, AddEditIngredientActivity.class)));
+
     }
     @Override
     protected void onResume() {
