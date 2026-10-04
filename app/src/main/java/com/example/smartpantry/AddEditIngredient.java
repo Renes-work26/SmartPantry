@@ -11,11 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.smartpantry.db.DatabaseHelper;
 import com.example.smartpantry.model.PantryItem;
-
 import java.util.Arrays;
 
 
-public class AddEditIngredientActivity extends AppCompatActivity {
+public class AddEditIngredient extends AppCompatActivity {
     private static final String[] UNITS = {"pcs", "kg", "g", "ml", "l", "tbsp", "tsp", "cup"};
     private DatabaseHelper dbHelper;
     private EditText inputName, inputQuantity;
@@ -25,7 +24,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_edit_ingredient);
+        setContentView(R.layout.add_edit_ingredient);
 
         dbHelper = DatabaseHelper.getInstance(this);
         inputName= findViewById(R.id.input_name);
@@ -36,7 +35,7 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, UNITS);
         inputUnit.setAdapter(unitAdapter);
 
-        editingItemId = getIntent().getLongExtra(PantryListActivity.EXTRA_ITEM_ID, -1);
+        editingItemId = getIntent().getLongExtra(PantryList.EXTRA_ITEM_ID, -1);
         if (editingItemId != -1) {
             setTitle("Edit Ingredient");
             populateForEdit(editingItemId);

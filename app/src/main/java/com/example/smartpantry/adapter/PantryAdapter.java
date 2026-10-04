@@ -42,6 +42,9 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
         holder.name.setText(item.getName());
 
         String details = formatQuantity(item.getQuantity()) + " " + item.getUnit();
+        if (item.getExpiryDate() != null && ! item.getExpiryDate().isEmpty()) {
+            details += " . expires " + item.getExpiryDate();
+        }
         holder.details.setText(details);
         holder.itemView.setOnClickListener(v -> listener.onItemClicked(item));
         holder.deleteButton.setOnClickListener(v -> listener.onDeleteClicked(item));

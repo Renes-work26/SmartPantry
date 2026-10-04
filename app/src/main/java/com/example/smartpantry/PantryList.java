@@ -6,8 +6,6 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class PantryListActivity extends AppCompatActivity implements PantryAdapter.Listener {
+public class PantryList extends BaseActivity implements PantryAdapter.Listener {
     public static final String EXTRA_ITEM_ID = "extra_item_id";
     private DatabaseHelper dbHelper;
     private PantryAdapter adapter;
@@ -38,8 +36,9 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.fab_add_item);
-        fab.setOnClickListener(v -> startActivity(new Intent(this, AddEditIngredientActivity.class)));
+        fab.setOnClickListener(v -> startActivity(new Intent(this, AddEditIngredient.class)));
 
+        setupBottomNavigation(R.id.nav_pantry);
     }
     @Override
     protected void onResume() {
@@ -53,7 +52,7 @@ public class PantryListActivity extends AppCompatActivity implements PantryAdapt
     }
     @Override
     public void onItemClicked(PantryItem item){
-        Intent intent = new Intent(this, AddEditIngredientActivity.class);
+        Intent intent = new Intent(this, AddEditIngredient.class);
         intent.putExtra(EXTRA_ITEM_ID, item.getId());
         startActivity(intent);
     }
